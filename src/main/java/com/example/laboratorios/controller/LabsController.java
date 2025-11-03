@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/labs")
 public class LabsController {
 
      @Autowired
@@ -36,43 +36,54 @@ public class LabsController {
     }
     
 
- // GET /api/users
+ // GET /api/labs
     @GetMapping
     public List<Laboratorio> getAll() {
-        log.info("Listando usuarios...");
+        log.info("Listando laboratorios...");
+        log.debug("laboratorios encontrados");
         return labsService.getAllLabs();
+        
     }
 
     //METODO GET /api/users/{id}
     @GetMapping("/{id}")
     public ResponseEntity<Laboratorio> getById(@PathVariable Long id) {
+        log.info("Busccando labaoratorio con id:", id);
         return labsService.getById(id)
-                .map(ResponseEntity::ok) // Si lo encuentra → 200 OK
+                .map(ResponseEntity::ok) // Si lo encuentra → 200 OK           
                 .orElse(ResponseEntity.notFound().build()); // Si no → 404
+                
     }
 
     //METODO POST /api/users
     @PostMapping
     public ResponseEntity<Laboratorio> create(@Valid @RequestBody Laboratorio laboratorio) {
+        log.info("Creando laboratorio:", laboratorio);
         Laboratorio nuevo = labsService.create(laboratorio);
+        log.debug("Laboratorio creado con id:", nuevo.getId());
          return ResponseEntity.status(201).body(nuevo); // Devuelve 201 nuevo
     }
 
     // METODO PUT /api/users/{id}
     @PutMapping("/{id}")
     public ResponseEntity<Laboratorio> update(@PathVariable Long id, @Valid @RequestBody Laboratorio laboratorio) {
+        log.info("Actualizando laboratorio con id:", id);
     Laboratorio updated = labsService.update(id, laboratorio);
         if (updated == null) {
+            log.debug("Laboratorio con id {} no encontrado para actualizar", id);
             return ResponseEntity.notFound().build();// Si no → 404
         }
+        log.debug("Laboratorio con id {} actualizado", id);
         return ResponseEntity.ok(updated);// Si lo encuentra → 200 OK
     }
 
     // METODO DELETE /api/users/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
+        log.info("Eliminando laboratorio con id:", id);
         // si no existe, tu service no lanza excepción; devolvemos 204 siempre
         labsService.deleteLabs(id);
+        log.debug("Laboratorio con id {} eliminado", id);
         return ResponseEntity.noContent().build();// Eliminado → 204
     }
 }    
