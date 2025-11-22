@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LabsService {
-  List<Laboratorio> getAllLabs();
+  List<Laboratorio> getAll();
   Optional<Laboratorio> getById(Long id);
   Laboratorio create(Laboratorio lab);
   Laboratorio update(Long id, Laboratorio lab);
-  void deleteLabs(Long id);
+  void delete(Long id);
   String login(String email, String clave);
 }

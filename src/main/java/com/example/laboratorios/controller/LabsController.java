@@ -41,7 +41,7 @@ public class LabsController {
     public List<Laboratorio> getAll() {
         log.info("Listando laboratorios...");
         log.debug("laboratorios encontrados");
-        return labsService.getAllLabs();
+        return labsService.getAll();
         
     }
 
@@ -82,7 +82,7 @@ public class LabsController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.info("Eliminando laboratorio con id:", id);
         // si no existe, tu service no lanza excepción; devolvemos 204 siempre
-        labsService.deleteLabs(id);
+        labsService.delete(id);
         log.debug("Laboratorio con id {} eliminado", id);
         return ResponseEntity.noContent().build();// Eliminado → 204
     }

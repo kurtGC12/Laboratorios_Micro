@@ -21,7 +21,7 @@ public class LabsServiceImpl implements LabsService {
     private LabsRepository labsRepository;
 //Metodos de cada parametro
     @Override
-    public List<Laboratorio> getAllLabs() {
+    public List<Laboratorio> getAll() {
         log.info("Listando laboratorios..."); 
         List<Laboratorio> labs = labsRepository.findAll();
         log.debug("laboratorios encontrados");
@@ -68,7 +68,7 @@ public class LabsServiceImpl implements LabsService {
     
 
     @Override//Eliminar laboratorio
-    public void deleteLabs(Long id) {
+    public void delete(Long id) {
         log.info("Eliminando laboratorio", id);
         if (labsRepository.existsById(id)) {
             labsRepository.deleteById(id);
