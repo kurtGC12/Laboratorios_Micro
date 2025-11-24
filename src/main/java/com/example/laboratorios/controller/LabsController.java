@@ -36,7 +36,7 @@ public class LabsController {
     }
     
 
- // GET /api/labs
+ // GET /api/laboratorios
     @GetMapping
     public List<Laboratorio> getAll() {
         log.info("Listando laboratorios...");
@@ -45,7 +45,7 @@ public class LabsController {
         
     }
 
-    //METODO GET /api/users/{id}
+    //METODO GET /api/laboratorios/{id}
     @GetMapping("/{id}")
     public ResponseEntity<Laboratorio> getById(@PathVariable Long id) {
         log.info("Busccando labaoratorio con id:", id);
@@ -55,7 +55,7 @@ public class LabsController {
                 
     }
 
-    //METODO POST /api/users
+    //METODO POST /api/laboratorios
     @PostMapping
     public ResponseEntity<Laboratorio> create(@Valid @RequestBody Laboratorio laboratorio) {
         log.info("Creando laboratorio:", laboratorio);
@@ -64,7 +64,7 @@ public class LabsController {
          return ResponseEntity.status(201).body(nuevo); // Devuelve 201 nuevo
     }
 
-    // METODO PUT /api/users/{id}
+    // METODO PUT /api/laboratorios/{id}
     @PutMapping("/{id}")
     public ResponseEntity<Laboratorio> update(@PathVariable Long id, @Valid @RequestBody Laboratorio laboratorio) {
         log.info("Actualizando laboratorio con id:", id);
@@ -77,7 +77,7 @@ public class LabsController {
         return ResponseEntity.ok(updated);// Si lo encuentra → 200 OK
     }
 
-    // METODO DELETE /api/users/{id}
+    // METODO DELETE /api/laboratorios/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.info("Eliminando laboratorio con id:", id);
