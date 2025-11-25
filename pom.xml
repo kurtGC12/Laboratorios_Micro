@@ -73,10 +73,10 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
- 			 <groupId>com.oracle.database.jdbc</groupId>
- 			 <artifactId>ojdbc11</artifactId>
-  			<version>23.7.0.25.01</version>
-		</dependency>
+    <groupId>com.oracle.database.jdbc</groupId>
+    <artifactId>ojdbc11</artifactId>
+    <version>23.4.0.24.05</version>
+</dependency>
 		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
