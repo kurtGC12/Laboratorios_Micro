@@ -1,17 +1,22 @@
-FROM eclipse-temurin:21-jre
-
+# ====== BUILD STAGE ======
+FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copiar el JAR
-COPY target/*SNAPSHOT.jar app.jar
+COPY pom.xml .
+COPY src ./src
 
+RUN mvn -DskipTests clean package
 
-# Copiar el Wallet
-COPY Wallet_FullStack3 /app/Wallet_FullStack3
+# ====== RUNTIME STAGE ======
+FROM eclipse-temurin:21-jre
+WORKDIR /app
 
-# Variable de entorno Oracle
+# Oracle wallet (si lo necesitas en runtime)
+COPY Wallet_FullStack3 ./Wallet_FullStack3
 ENV TNS_ADMIN=/app/Wallet_FullStack3
 
-EXPOSE 8080
+# Copiar el JAR construido en el stage "build"
+COPY --from=build /app/target/*.jar app.jar
 
+EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]
